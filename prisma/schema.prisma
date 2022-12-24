@@ -1,0 +1,156 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String       @id @default(uuid())
+  email      String       @unique
+  password   String
+  name       String?
+  address    String?
+  role       Role         @default(USER)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now())
+  Purchase   Purchase[]
+  UserTokens UserTokens[]
+}
+
+model UserTokens {
+  id           String   @id @default(uuid())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  refreshToken String   @db.VarChar(360)
+  family       String   @unique
+  browserInfo  String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+}
+
+model Product {
+  id                 String     @id @default(uuid())
+  name               String     @unique
+  urlName            String     @unique
+  picture            String?
+  basePrice          Decimal
+  discountPercentage Int        @default(0)
+  stock              Int        @default(0)
+  description        String?
+  createdAt          DateTime   @default(now())
+  categories         Category[]
+  Purchase           Purchase[]
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  products Product[]
+}
+
+model Purchase {
+  id            String   @id @default(uuid())
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId        String?
+  product       Product  @relation(fields: [productId], references: [id])
+  productId     String
+  amount        Int      @default(1)
+  totalPrice    Decimal
+  reviewNote    Int?
+  reviewComment String?
+  createdAt     DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+// model Product {
+//   id          String        @id @unique @default(uuid())
+//   name        String        @unique
+//   description String
+//   price       Float
+//   stock       Int
+//   status      ProductStatus @default(AVILIABLE)
+//   createdAt   DateTime      @default(now())
+//   updatedAt   DateTime      @updatedAt
+//   OrderItems  OrderItems[]
+
+//   @@map("Products")
+// }
+
+// model User {
+//   id          String  @id @unique @default(uuid())
+//   userName    String  @unique @db.VarChar(30)
+//   email       String  @unique
+//   password    String
+//   phoneNumber String  @db.VarChar(15)
+//   address     String
+//   city        String
+//   postalCode  String
+//   gender      String
+//   dateOfBirth String
+//   addressNote String?
+//   role        Role    @default(CLIENT)
+//   verified    Boolean @default(false)
+//   token       String  @default("")
+//   country     Country
+//   orders      Order?  @relation(fields: [ordersId], references: [id])
+//   ordersId    String?
+
+//   @@map("Users")
+// }
+
+// enum Role {
+//   CLIENT
+//   ADMIN
+// }
+
+// enum ProductStatus {
+//   AVILIABLE
+//   UNAVILIABLE
+// }
+
+// enum Country {
+//   GE
+//   FR
+//   SW
+//   IT
+//   NO
+//   BE
+// }
+
+// model Order {
+//   id         String       @unique @default(uuid())
+//   userId     String
+//   status     String
+//   createdAt  DateTime
+//   User       User[]
+//   OrderItems OrderItems[]
+
+//   @@map("Orders")
+// }
+
+// model OrderItems {
+//   id        String  @unique @default(uuid())
+//   orders    Order   @relation(fields: [orderId], references: [id])
+//   orderId   String
+//   product   Product @relation(fields: [productId], references: [id])
+//   productId String
+//   quantity  Int
+
+//   @@map("Order_items")
+// }
+
+// model Cart {
+//   id       String @default(uuid()) 
+//   quantity Int
+//   @@unique([id])
+// }
