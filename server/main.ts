@@ -28,6 +28,10 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document);
 
   // app.setGlobalPrefix('api');
-  await app.listen(process.env.APP_PORT || 6000);
+  await app.listen(process.env.PORT || 80, ()=> {
+    console.log('app listen on port' + process.env.PORT);
+    
+      console.log(app);
+  });
 }
 bootstrap().catch((err) => console.log(err));

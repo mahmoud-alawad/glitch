@@ -35,8 +35,7 @@ lerna-debug.log*
 
 # Environment Variable
 docker.env
-*.env
-.env
+
 
 #db
 /mysql

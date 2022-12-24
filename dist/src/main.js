@@ -1,20 +1,28 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const core_1 = require("@nestjs/core");
-const swagger_1 = require("@nestjs/swagger");
-const app_module_1 = require("./app.module");
-async function bootstrap() {
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.enableCors();
-    const config = new swagger_1.DocumentBuilder()
-        .setTitle('E-Commerce API')
-        .setDescription('Project Commerce : Author: Mahmoud')
-        .setVersion('1.0')
-        .build();
-    const document = swagger_1.SwaggerModule.createDocument(app, config);
-    swagger_1.SwaggerModule.setup('api/docs', app, document);
-    app.setGlobalPrefix('api');
-    await app.listen(process.env.APP_PORT);
-}
-bootstrap().catch((err) => console.log(err));
+const vue_1 = require("vue");
+const pinia_1 = require("pinia");
+const App_vue_1 = __importDefault(require("./App.vue"));
+const router_1 = __importDefault(require("./router"));
+const app = (0, vue_1.createApp)(App_vue_1.default);
+app.use((0, pinia_1.createPinia)());
+app.use(router_1.default);
+app
+    .mixin({
+    methods: {
+        moneyFormat(number) {
+            const reverse = number.toString().split('').reverse().join('');
+            let thousands = reverse.match(/\d{1,3}/g);
+            thousands = thousands.join('.').split('').reverse().join('');
+            return thousands;
+        },
+        calculateDiscount(product) {
+            return product.price - (product.price * product.discount) / 100;
+        },
+    },
+})
+    .mount('#app');
 //# sourceMappingURL=main.js.map

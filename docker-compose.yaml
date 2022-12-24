@@ -33,7 +33,7 @@ services:
     working_dir: /var/www/html
     tty: true
     environment:
-      - YBUILD=yarn start:dev
+      - YBUILD=yarn
     user: ${DOCKER_USER:-1000}:${DOCKER_USER:-1000}
     ports:
       - ${APP_PORT}:3000
