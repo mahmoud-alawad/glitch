@@ -6821,10 +6821,10 @@ pretty-format@^28.1.1:
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
 
-prisma-error-enum@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/prisma-error-enum/-/prisma-error-enum-0.1.2.tgz#973f63f3ef1a1fe3d559d4ee876b85edb515801a"
-  integrity sha512-O70RgSy++Vojnlg9RIrmheoja7IRgtmka7fDJWmSOWst8EHRnc3pP07GujFOvnlF6f42gzZ65+Ny8ICjhU3TYg==
+prisma-error-enum@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/prisma-error-enum/-/prisma-error-enum-0.1.3.tgz#8d5820a83698fbaf4df5e13528b7d54941dc81c6"
+  integrity sha512-Ybu1gnxsj4IMCdGjOqdQ7Jaf9XnDzrnnVK+LBOCQBG9OCUuBxUikgwUzBeJX3oKvZ0ni//lHqsTga0Qvh3ZfCQ==
 
 prisma@^3.14.0:
   version "3.14.0"
