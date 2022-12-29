@@ -1,4 +1,4 @@
-### **PROJET DEVLAB: L'Amour des Goodies - API**
+### **PROJET ECOMMERCE:**
 
 WIP Description & Docs
 
